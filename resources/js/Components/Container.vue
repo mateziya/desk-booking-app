@@ -3,7 +3,16 @@
 </script>
 
 <template>
-  <div class="bg-white/5 backdrop-blur-xl mx-auto p-8 rounded-3xl shadow-inner shadow-white/5 sm:mx-auto sm:w-full sm:max-w-[480px]">
+  <div class="bg-white/5 
+              backdrop-blur-xl 
+              ring-1 
+              ring-white/10 
+              mx-auto 
+              p-8 
+              rounded-3xl 
+              sm:mx-auto 
+              sm:w-full 
+              sm:max-w-[480px]">
     <slot />
   </div>
 </template>

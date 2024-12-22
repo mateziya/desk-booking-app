@@ -6,7 +6,7 @@ defineProps({
 
 <template>
   <div class="mb-4" v-if="Object.keys(errors).length">
-    <p class="text-sm text-red-400">
+    <p class="text-sm text-red-500">
       Something went wrong!
     </p>
     <ul class="ml-4 list-disc list-inside">

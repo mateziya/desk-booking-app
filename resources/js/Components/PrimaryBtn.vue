@@ -10,7 +10,7 @@
                 bg-indigo-600 
                 px-3 
                 py-1.5 
-                text-sm/6 
+                text-base 
                 font-semibold 
                 text-white 
                 shadow-sm 

@@ -1,9 +1,14 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Dialog, DialogPanel } from '@headlessui/vue';
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
+import { usePage } from '@inertiajs/vue3';
 
 const mobileMenuOpen = ref(false);
-</script>
+
+const page = usePage();
+const user = computed(() => page.props.auth.user);
+</script> 
 
 <template>
   <header>
@@ -22,26 +27,71 @@ const mobileMenuOpen = ref(false);
         </button>
       </div>
       <div class="hidden lg:flex">
-        <Link :href="route('login')" class="rounded-full bg-indigo-600 px-3.5 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800">Log in</Link>
+        <!-- Logged in User -->
+        <div v-if="user">
+          <Popover class="relative" >
+            <PopoverButton class="inline-flex items-center gap-x-1 text-sm/6 font-semibold text-white">
+              <span class="text-base px-1">
+                {{ user.name }}
+              </span>
+              <i class="fa-solid fa-chevron-down fa-lg text-gray-400" aria-hidden="true"></i>
+            </PopoverButton>
+            <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1" enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150" leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
+              <PopoverPanel class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-min -translate-x-1/2 px-4">
+                <div class="w-56 shrink rounded-2xl bg-white/5 backdrop-blur-xl p-4 text-sm/6 font-semibold text-slate-400 ring-1 ring-white/10 divide-y divide-gray-500/25">
+                  <div class="pb-2">
+                    <Link class="block p-2 hover:text-indigo-600">
+                      Dashboard
+                    </Link>
+                  </div>
+                  <div class="py-2">
+                    <Link :href="route('logout')" method="post" as="button" class="block px-2 pt-2 hover:text-indigo-600">
+                      Log out
+                    </Link>
+                  </div>
+                </div>
+              </PopoverPanel>
+            </transition>
+          </Popover>
+        </div>
+        <!-- User before Logging in  -->
+        <div v-else>
+          <Link :href="route('login')" class="rounded-full bg-indigo-600 px-3.5 py-2 text-base font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800">Log in</Link>
+        </div>
       </div>
     </nav>
 
     <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
       <div class="fixed inset-0 z-10">
-      <DialogPanel class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-zinc-900 px-5 py-5 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+      <DialogPanel class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white/5 backdrop-blur-xl p-4 sm:max-w-sm sm:ring-1 sm:ring-white/10">
         <div class="flex items-center justify-between">
-            <img class="h-8 w-auto" src="../Images/Icon.png" alt="App Logo" />
+            <img class="h-10 w-auto" src="../Images/Icon.png" alt="App Logo" />
           <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-400" @click="mobileMenuOpen = false">
             <i class="fa-solid fa-xmark fa-lg" aria-hidden="true"></i>
           </button>
         </div>
         <div class="mt-6 flow-root">
-          <div class="-my-6 divide-y divide-gray-500/25">
-            <div class="space-y-2 py-6">
-              <Link :href="route('home')" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-zinc-800">Home</Link>
+          <!-- Logged in User -->
+          <div v-if="user">
+            <div class="-my-6 divide-y divide-gray-500/25">
+              <div class="space-y-2 py-6">
+                <Link :href="route('home')" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Home</Link>
+                <Link class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Dashboard</Link>
+              </div>
+              <div class="py-6">
+                <Link :href="route('logout')" method="post" as="button" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5 ">Log out</Link>
+              </div>
             </div>
-            <div class="py-6">
-              <Link :href="route('login')" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-zinc-800 ">Log in</Link>
+          </div>
+          <!-- User before Logging in  -->
+          <div v-else>
+            <div class="-my-6 divide-y divide-gray-500/25">
+              <div class="space-y-2 py-6">
+                <Link :href="route('home')" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Home</Link>
+              </div>
+              <div class="py-6">
+                <Link :href="route('login')" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5 ">Log in</Link>
+              </div>
             </div>
           </div>
         </div>
