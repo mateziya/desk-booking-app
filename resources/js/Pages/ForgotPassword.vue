@@ -1,26 +1,20 @@
 <script setup>
 import Container from '../Components/Container.vue';
 import Title from '../Components/Title.vue';
-import TextLink from '../Components/TextLink.vue';
 import InputField from '../Components/InputField.vue';
 import PrimaryBtn from '../Components/PrimaryBtn.vue';
 import ErrorMessages from '../Components/ErrorMessages.vue';
 import SessionMessages from '../Components/SessionMessages.vue';
-import CheckBox from '../Components/CheckBox.vue';
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    email: '',
-    password: '',
-    remember: null
+    email: ''
 });
 
 defineProps({ status: String });
 
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password')
-    });
+    form.post(route('password.email'));
 };
 </script>
 
@@ -28,7 +22,10 @@ const submit = () => {
   <Container class="mt-20">
     <img class="my-4 h-20 w-auto mx-auto" src="../Images/Icon.png" alt="App Logo">
     <div class="mb-8 text-center">
-      <Title>Log in to your account</Title>
+      <Title> Forgot your password?</Title>
+      <p class="mt-3 text-slate-400">
+        No problem. Type your email address and we will email you a password reset link
+      </p>
     </div>
 
     <ErrorMessages :errors="form.errors" />
@@ -36,16 +33,8 @@ const submit = () => {
 
     <form @submit.prevent="submit" class="space-y-6">
       <InputField label="Email" icon="at" v-model="form.email" />
-      <InputField label="Password" type="password" icon="key" v-model="form.password" />
 
-      <div class="flex items-center justify-between">
-        <CheckBox name="remember" v-model="form.remember">
-          Remember me
-        </CheckBox>
-        <TextLink routeName="password.request" label="Forgot Password?"  />
-      </div>
-
-      <PrimaryBtn :disabled="form.processing">Log in</PrimaryBtn>
+      <PrimaryBtn :disabled="form.processing">Send Password Reset Link</PrimaryBtn>
     </form>
   </Container>
 </template>
