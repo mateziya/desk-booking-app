@@ -40,9 +40,15 @@ const user = computed(() => page.props.auth.user);
               <PopoverPanel class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-min -translate-x-1/2 px-4">
                 <div class="w-56 shrink rounded-2xl bg-white/5 backdrop-blur-xl p-4 text-sm/6 font-semibold text-slate-400 ring-1 ring-white/10 divide-y divide-gray-500/25">
                   <div class="pb-2">
-                    <Link class="block p-2 hover:text-indigo-600">
+                    <Link :href="route('home')" class="block p-2 hover:text-indigo-600">
+                      Home
+                    </Link>
+                    <Link :href="route('calendar')" v-if="user.role === 'user'" class="block p-2 hover:text-indigo-600">
                       Dashboard
                     </Link>
+                    <Link :href="route('admin.users')" v-if="user.role === 'admin'" class="block p-2 hover:text-indigo-600">
+                      Dashboard
+                    </Link>                     
                   </div>
                   <div class="py-2">
                     <Link :href="route('logout')" method="post" as="button" class="block px-2 pt-2 hover:text-indigo-600">
@@ -56,7 +62,7 @@ const user = computed(() => page.props.auth.user);
         </div>
         <!-- User before Logging in  -->
         <div v-else>
-          <Link :href="route('login')" class="rounded-full bg-indigo-600 px-3.5 py-2 text-base font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800">Log in</Link>
+          <Link :href="route('login')" class="rounded-xl bg-indigo-600 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800">Log In</Link>
         </div>
       </div>
     </nav>
@@ -76,7 +82,9 @@ const user = computed(() => page.props.auth.user);
             <div class="-my-6 divide-y divide-gray-500/25">
               <div class="space-y-2 py-6">
                 <Link :href="route('home')" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Home</Link>
-                <Link class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Dashboard</Link>
+                <Link :href="route('calendar')" v-if="user.role === 'user'" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Dashboard</Link>
+                
+                <Link :href="route('admin.users')" v-if="user.role === 'admin'" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Dashboard</Link>
               </div>
               <div class="py-6">
                 <Link :href="route('logout')" method="post" as="button" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5 ">Log out</Link>

@@ -9,10 +9,10 @@
               ring-white/10 
               mx-auto 
               p-8 
-              rounded-3xl 
+              rounded-3xl
               sm:mx-auto 
               sm:w-full 
-              sm:max-w-[480px]">
+              sm:max-w-md">
     <slot />
   </div>
 </template>

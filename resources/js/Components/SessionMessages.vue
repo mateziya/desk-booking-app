@@ -1,5 +1,7 @@
 <script setup>
-defineProps({ status: String });
+defineProps({
+  status: String
+});
 </script>
 
 <template>

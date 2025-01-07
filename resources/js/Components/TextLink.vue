@@ -2,7 +2,7 @@
 defineProps({
   routeName: String,
   label: String
-  })
+});
 </script>
 
 <template>

@@ -8,13 +8,13 @@ import SessionMessages from '../Components/SessionMessages.vue';
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    email: ''
+  email: ''
 });
 
 defineProps({ status: String });
 
 const submit = () => {
-    form.post(route('password.email'));
+  form.post(route('password.email'));
 };
 </script>
 
@@ -22,9 +22,9 @@ const submit = () => {
   <Container class="mt-20">
     <img class="my-4 h-20 w-auto mx-auto" src="../Images/Icon.png" alt="App Logo">
     <div class="mb-8 text-center">
-      <Title> Forgot your password?</Title>
+      <Title class="mt-4">Forgot your password?</Title>
       <p class="mt-3 text-slate-400">
-        No problem. Type your email address and we will email you a password reset link
+        No problem. Type your email address and we will email you a password reset link!
       </p>
     </div>
 

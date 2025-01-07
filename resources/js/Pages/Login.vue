@@ -10,25 +10,25 @@ import CheckBox from '../Components/CheckBox.vue';
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    email: '',
-    password: '',
-    remember: null
+  email: '',
+  password: '',
+  remember: null
 });
 
 defineProps({ status: String });
 
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password')
-    });
+  form.post(route('login'), {
+    onFinish: () => form.reset('password')
+  });
 };
 </script>
 
 <template>
-  <Container class="mt-20">
+  <Container class="mt-20 lg:max-w-md md:max-w-md">
     <img class="my-4 h-20 w-auto mx-auto" src="../Images/Icon.png" alt="App Logo">
     <div class="mb-8 text-center">
-      <Title>Log in to your account</Title>
+      <Title class="mt-6">Log in to your account</Title>
     </div>
 
     <ErrorMessages :errors="form.errors" />
@@ -45,7 +45,7 @@ const submit = () => {
         <TextLink routeName="password.request" label="Forgot Password?"  />
       </div>
 
-      <PrimaryBtn :disabled="form.processing">Log in</PrimaryBtn>
+      <PrimaryBtn :disabled="form.processing">Log In</PrimaryBtn>
     </form>
   </Container>
 </template>
