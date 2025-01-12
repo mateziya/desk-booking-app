@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Desk;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class AdminController extends Controller
         $credentials = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|lowercase|email|max:255',
-            'role' => 'string|max:25',
+            'role' => 'string',
             'password' => 'required|min:6|confirmed'
         ]);
         $credentials['role'] = strtolower($credentials['role']);
@@ -44,9 +45,8 @@ class AdminController extends Controller
         $credentials = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|lowercase|email|max:255',
-            'role' => 'string|max:25'
+            'role' => 'string'
         ]);
-        $credentials['role'] = strtolower($credentials['role']);
         $user->update($credentials);
 
         return redirect()->route('admin.users');

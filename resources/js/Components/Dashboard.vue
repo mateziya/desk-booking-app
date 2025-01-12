@@ -29,7 +29,7 @@ defineProps({
               <Link :href="route('admin.users')" v-if="user.role === 'admin'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'UserList'}">
                 Users
               </Link>
-              <Link :href="route('home')" v-if="user.role === 'admin'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === ''}">
+              <Link :href="route('admin.desks')" v-if="user.role === 'admin'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'DeskList'}">
                 Desks
               </Link>
             </div>

@@ -16,11 +16,6 @@ const form = useForm({
   password_confirmation: ''
 });
 
-defineProps({
-  users: Object,
-  status: String
-});
-
 const submit = () => {
   form.post(route('admin.create'), {
     onFinish: () => form.reset('password', 'password_confirmation')

@@ -35,7 +35,7 @@ const confirmDelete = () => {
         <div class="flex justify-end pb-3 px-4">
           <Link :href="route('admin.create')" class="rounded-xl bg-indigo-600 px-3 py-2 text-center font-semibold text-sm text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 xl:text-sm max-md:text-xs">Add User</Link>
         </div>
-        <div class="flow-root overflow-hidden bg-white/5 rounded-2xl shadow">
+        <div class="flow-root overflow-hidden bg-gradient-to-t from-black/40 bg-white/5 rounded-3xl shadow ring-1 ring-white/10">
           <div class="mx-auto max-w-7xl px-6">
             <table class="w-full text-left">
               <thead>
@@ -91,8 +91,8 @@ const confirmDelete = () => {
             <DialogPanel class="relative transform overflow-hidden rounded-3xl bg-white/10 backdrop-blur-sm ring-1 
               ring-white/20 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
               <div>
-                <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-red-500/15">
-                  <i class="fa-solid fa-bomb text-red-500" aria-hidden="true"></i>
+                <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-red-400/20">
+                  <i class="fa-solid fa-bomb text-red-500 text-xl" aria-hidden="true"></i>
                 </div>
                 <div class="mt-3 text-center sm:mt-5">
                   <DialogTitle as="h3" class="text-xl font-semibold text-white">Delete User</DialogTitle>
