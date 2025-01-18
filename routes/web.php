@@ -3,12 +3,12 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DeskController;
+use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Home')->name('home');
-Route::inertia('/calendar', 'UserCalendar')->middleware('auth')->name('calendar');
 
 Route::middleware('guest')->group(function () {
   Route::get('/login', [LoginController::class, 'create'])->name('login');
@@ -18,6 +18,11 @@ Route::middleware('guest')->group(function () {
   Route::post('/forgot-password', [ResetPasswordController::class, 'sendEmail'])->name('password.email');
   Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetForm'])->name('password.reset');
   Route::post('/reset-password', [ResetPasswordController::class, 'resetHandler'])->name('password.update');
+});
+
+Route::middleware(['auth', 'verified'])->group(function() {
+  Route::get('/calendar', [ReservationsController::class, 'userCallendar'])->name('calendar');
+  Route::get('/reserve/{date}', [ReservationsController::class, 'userReservations'])->name('reserve');
 });
 
 Route::middleware(['auth', 'verified', Admin::class])->group(function() {

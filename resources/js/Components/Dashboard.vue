@@ -23,13 +23,16 @@ defineProps({
               <Title class="pb-3 text-white/85 max-sm:text-2xl max-sm:pb-2 max-md:text-3xl max-lg:text-4xl text-5xl">{{ title }}</Title>
             </div>
             <div class="flex text-slate-400">
-              <Link :href="route('home')" v-if="user.role === 'admin'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'UserCalendar'}">
+              <Link :href="route('home')" v-if="user.role === 'user' && $page.component === 'UserCalendar'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'UserCalendar'}">
                 Calendar
               </Link>
-              <Link :href="route('admin.users')" v-if="user.role === 'admin'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'UserList'}">
+              <Link :href="route('calendar')" v-if="user.role === 'admin' && $page.component === 'UserCalendar'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'UserCalendar'}">
+                Calendar
+              </Link>
+              <Link :href="route('admin.users')" v-if="user.role === 'admin' && $page.component === 'UserCalendar'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'UserList'}">
                 Users
               </Link>
-              <Link :href="route('admin.desks')" v-if="user.role === 'admin'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'DeskList'}">
+              <Link :href="route('admin.desks')" v-if="user.role === 'admin' && $page.component === 'UserCalendar'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'DeskList'}">
                 Desks
               </Link>
             </div>

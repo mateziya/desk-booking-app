@@ -46,7 +46,7 @@ const user = computed(() => page.props.auth.user);
                     <Link :href="route('calendar')" v-if="user.role === 'user'" class="block p-2 hover:text-indigo-600">
                       Dashboard
                     </Link>
-                    <Link :href="route('admin.users')" v-if="user.role === 'admin'" class="block p-2 hover:text-indigo-600">
+                    <Link :href="route('calendar')" v-if="user.role === 'admin'" class="block p-2 hover:text-indigo-600">
                       Dashboard
                     </Link>                     
                   </div>
@@ -84,7 +84,7 @@ const user = computed(() => page.props.auth.user);
                 <Link :href="route('home')" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Home</Link>
                 <Link :href="route('calendar')" v-if="user.role === 'user'" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Dashboard</Link>
                 
-                <Link :href="route('admin.users')" v-if="user.role === 'admin'" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Dashboard</Link>
+                <Link :href="route('calendar')" v-if="user.role === 'admin'" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Dashboard</Link>
               </div>
               <div class="py-6">
                 <Link :href="route('logout')" method="post" as="button" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5 ">Log out</Link>
