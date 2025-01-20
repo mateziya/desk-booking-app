@@ -35,8 +35,8 @@ const submit = () => {
     <SessionMessages :status="status" />
 
     <form @submit.prevent="submit" class="space-y-6">
-      <InputField label="Email" icon="at" v-model="form.email" />
-      <InputField label="Password" type="password" icon="key" v-model="form.password" />
+      <InputField label="Email" icon="envelope" v-model="form.email" />
+      <InputField label="Password" type="password" icon="lock" v-model="form.password" />
 
       <div class="flex items-center justify-between">
         <CheckBox name="remember" v-model="form.remember">

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Desk;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
     public function users()
     {

@@ -35,9 +35,9 @@ const submit = () => {
     <ErrorMessages :errors="form.errors" />
 
     <form @submit.prevent="submit" class="space-y-6">
-      <InputField label="Email" icon="at" v-model="form.email" />
-      <InputField label="Password" type="password" icon="key" v-model="form.password" />
-      <InputField label="Confirm Password" type="password" icon="key" v-model="form.password_confirmation" />
+      <InputField label="Email" icon="envelope" v-model="form.email" />
+      <InputField label="Password" type="password" icon="lock" v-model="form.password" />
+      <InputField label="Confirm Password" type="password" icon="lock" v-model="form.password_confirmation" />
 
       <PrimaryBtn :disabled="form.processing">Reset Password</PrimaryBtn>
     </form>

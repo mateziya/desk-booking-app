@@ -2,6 +2,10 @@
 import Dashboard from '../Components/Dashboard.vue';
 import Title from '../Components/Title.vue';
 import { ref, computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
+
+const page = usePage();
+const user = computed(() => page.props.auth.user);
 
 const currentDate = new Date();
 const currentMonth = ref(currentDate.getMonth());
@@ -66,18 +70,21 @@ const prevMonth = () => {
     currentMonth.value--;
   }
 };
+const selectedDate = (day) => {
+  return currentYear.value  + '-' + ((currentMonth.value) + 1) + '-' + day.getDate();
+};
 </script>
 
 <template>
-  <Dashboard title="Calendar" icon="calendar-days">
+  <Dashboard title="Calendar" icon="calendar-check">
     <div class="pt-3">
       <div class="flex justify-between pb-3 px-4">
-          <button @click="prevMonth" class="rounded-xl bg-indigo-600 px-5 py-2 text-center font-semibold text-sm text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 xl:text-sm max-md:text-xs">
-            <i class="fa-solid fa-angle-left"></i> 
+          <button @click="prevMonth" class="min-w-16 rounded-xl bg-indigo-600 px-5 py-2 text-center font-semibold text-sm text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 xl:text-sm max-md:text-xs">
+            <i class="fa-solid fa-chevron-left"></i>
           </button>
           <Title>{{ monthNames[currentMonth] }} {{ currentYear }}</Title>
-          <button @click="nextMonth" class="rounded-xl bg-indigo-600 px-5 py-2 text-center font-semibold text-sm text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 xl:text-sm max-md:text-xs">
-            <i class="fa-solid fa-angle-right"></i>
+          <button @click="nextMonth" class="min-w-16 rounded-xl bg-indigo-600 px-5 py-2 text-center font-semibold text-sm text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 xl:text-sm max-md:text-xs">
+            <i class="fa-solid fa-chevron-right"></i>
           </button>
         </div>
       <div class="flow-root overflow-hidden bg-gradient-to-t from-black/40 bg-white/5 rounded-3xl shadow ring-1 ring-white/10">
@@ -106,8 +113,7 @@ const prevMonth = () => {
             </p>
           </div>
           <div class="grid grid-cols-7">
-            <div v-for="(day, index) in daysInMonth" :key="index" class="flex justify-center">
-              
+            <div v-if="user.role === 'user'" v-for="(day, index) in daysInMonth" :key="index" class="flex justify-center">
               <Link v-if="workDays(day)"
               :class="{
                   'ring-1 ring-indigo-800 bg-indigo-600/20 rounded-lg': isToday(day),
@@ -118,7 +124,33 @@ const prevMonth = () => {
                   
                 }" 
               class="w-full py-8 text-center text-lg font-semibold text-gray-100"
-              :href="route('reserve', `${currentYear}` + '-' + `${currentMonth + 1}` + '-' + `${day.getDate()}` )">
+              :href="route('reserve', selectedDate(day) )">
+                {{ day.getDate() }}
+              </Link>
+              <p v-else
+              :class="{
+                  'ring-1 ring-indigo-800 bg-indigo-600/20 rounded-lg': isToday(day),
+                  'text-white/15': !isCurrentMonth(day),
+                  'text-white/40': isSaturday(day),
+                  'text-indigo-600': isSunday(day)
+                }" 
+              class="w-full m-1 py-8 text-center text-lg font-semibold text-gray-100">
+                {{ day.getDate() }}
+              </p>
+            </div>
+
+            <div v-if="user.role === 'admin'" v-for="(day, index) in daysInMonth" :key="index" class="flex justify-center">
+              <Link v-if="workDays(day)"
+              :class="{
+                  'ring-1 ring-indigo-800 bg-indigo-600/20 rounded-lg': isToday(day),
+                  'm-1 rounded-lg hover:ring-1 hover:ring-indigo-800/50 hover:bg-indigo-600/10': workDays(day),
+                  'text-white/15': !isCurrentMonth(day),
+                  'text-white/40': isSaturday(day),
+                  'text-indigo-600': isSunday(day)
+                  
+                }" 
+              class="w-full py-8 text-center text-lg font-semibold text-gray-100"
+              :href="route('reservations', selectedDate(day) )">
                 {{ day.getDate() }}
               </Link>
               <p v-else

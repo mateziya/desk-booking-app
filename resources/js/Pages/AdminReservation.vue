@@ -5,36 +5,36 @@ import { router } from '@inertiajs/vue3';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
 
 const props = defineProps({
+  desks: Object,
   users: Object,
+  selectedDate: String,
+  reservations: Object
 });
 
 const isModalOpen = ref(false);
-const selectedUser = ref(null);
+const selectedReservation = ref(null);
 
-const openModal = (user) => {
-  selectedUser.value = user;
+const openModal = (reservation) => {
+  selectedReservation.value = reservation;
   isModalOpen.value = true;
 };
 const closeModal = () => {
   isModalOpen.value = false;
-  selectedUser.value = null;
+  selectedReservation.value = null;
 };
 
 const confirmDelete = () => {
-  if (selectedUser.value) {
-    router.delete(route('users.destroy', selectedUser.value.id));
+  if (selectedReservation.value) {
+    router.delete(route('delete.reservation', selectedReservation.value.id));
     closeModal();  
   }
 };
 </script>
 
 <template>
-  <Dashboard title="Users" icon="user-group">
-    <div class="pt-3">
+  <Dashboard title="Reservations" icon="bookmark">
+    <div class="pt-6">
       <div>
-        <div class="flex justify-end pb-3 px-4">
-          <Link :href="route('admin.create')" class="rounded-xl bg-indigo-600 px-3 py-2 text-center font-semibold text-sm text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 xl:text-sm max-md:text-xs">Add User</Link>
-        </div>
         <div class="flow-root overflow-hidden bg-gradient-to-t from-black/40 bg-white/5 rounded-3xl shadow ring-1 ring-white/10">
           <div class="mx-auto max-w-7xl px-6">
             <table class="w-full text-left">
@@ -45,29 +45,29 @@ const confirmDelete = () => {
                     <div class="absolute inset-y-0 right-full -z-10 w-screen border-b border-b-gray-500/25" />
                     <div class="absolute inset-y-0 left-0 -z-10 w-screen border-b border-b-gray-500/25" />
                   </th>
-                  <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 md:table-cell">Name</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-400">Email</th>
-                  <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 sm:table-cell">Role</th>
+                  <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 md:table-cell">User</th>
+                  <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 md:table-cell">User Email</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-400">Desk</th>
+                  <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 sm:table-cell">Date</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr v-for="user in users" :key="user.id">
+              <tbody v-for="reservation in reservations" :key="reservation.id">
+                <tr v-if="selectedDate === reservation.date">
                   <td class="relative py-4 pr-3 text-sm font-medium text-gray-100">
-                    {{ user.id }}
+                    {{ reservation.id }}
                   </td>
-                  <td class="hidden px-3 py-4 text-sm text-gray-100 md:table-cell">{{ user.name }}</td>
-                  <td class="px-3 py-4 text-sm text-gray-100">{{ user.email }}</td>
-                  <td class="whitespace-nowrap  px-3 py-4 text-xs capitalize">
-                    <span v-if="user.role === 'admin'" class="hidden min-w-14 rounded-md bg-red-50/5 px-2 py-1 font-medium text-center text-red-500 ring-1 ring-inset ring-red-600/20 sm:table-cell">{{ user.role }}</span>
-                    <span v-if="user.role === 'user'" class="hidden min-w-14 rounded-md bg-green-50/5 px-2 py-1 font-medium text-center text-green-500 ring-1 ring-inset ring-green-600/20 sm:table-cell">{{ user.role }}</span>
+                  <td class="hidden px-3 py-4 text-sm text-gray-100 md:table-cell">{{ reservation.user.name }}</td>
+                  <td class="hidden px-3 py-4 text-sm text-gray-100 md:table-cell">{{ reservation.user.email }}</td>
+                  <td class="px-3 py-4 text-sm">
+                    <span class="hidde min-w-24 place-content-center rounded-md bg-green-50/5 px-2 py-1 font-medium text-center text-green-500 ring-1 ring-inset ring-green-600/20 sm:table-cell">
+                      {{ reservation.desk.name }}
+                    </span>
                   </td>
-                  <td class="relative py-4 px-1 text-right text-sm font-medium">
-                    <Link :href="route('users.edit', user.id)" class="text-sm/6 font-semibold text-indigo-600 hover:text-indigo-500">
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </Link>
+                  <td class="px-3 py-4 text-sm text-gray-100">
+                    {{ reservation.date }}
                   </td>
-                  <td class="relative py-4 text-right text-sm font-medium">
-                    <button @click="openModal(user)" type="button" class="text-sm/6 font-semibold text-red-500 hover:text-red-400">
+                  <td class="relative py-4  text-right text-sm font-medium">
+                    <button @click="openModal(reservation)" type="button" class="text-sm/6 font-semibold text-red-500 hover:text-red-400">
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   </td>
@@ -95,9 +95,9 @@ const confirmDelete = () => {
                   <i class="fa-solid fa-bomb text-red-500 text-xl" aria-hidden="true"></i>
                 </div>
                 <div class="mt-3 text-center sm:mt-5">
-                  <DialogTitle as="h3" class="text-xl font-semibold text-white">Delete User</DialogTitle>
+                  <DialogTitle as="h3" class="text-xl font-semibold text-white">Delete Reservation</DialogTitle>
                   <div class="mt-2">
-                    <p class="text-gray-400 text-base/7 font-semibold">Are you sure you want to delete this user?</p>
+                    <p class="text-gray-400 text-base/7 font-semibold">Are you sure you want to delete this reservation?</p>
                   </div>
                 </div>
               </div>

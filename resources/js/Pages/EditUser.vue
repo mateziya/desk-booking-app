@@ -34,7 +34,7 @@ const submit = () => {
 
     <form @submit.prevent="submit" class="space-y-6">
       <InputField label="Name" icon="user" v-model="form.name" />
-      <InputField label="Email" icon="at" v-model="form.email" />
+      <InputField label="Email" icon="envelope" v-model="form.email" />
       <RoleSelect label="Role" icon="ticket" v-model="form.role"/>
       <PrimaryBtn :disabled="form.processing">Update User</PrimaryBtn>
     </form>

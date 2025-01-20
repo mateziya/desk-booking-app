@@ -11,8 +11,8 @@ const props = defineProps({
 const isModalOpen = ref(false);
 const selectedDesk = ref(null);
 
-const openModal = (user) => {
-  selectedDesk.value = user;
+const openModal = (desk) => {
+  selectedDesk.value = desk;
   isModalOpen.value = true;
 };
 const closeModal = () => {
@@ -81,7 +81,7 @@ const confirmDelete = () => {
                 </div>
               </div>
               <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                <button type="button" class="inline-flex w-full justify-center rounded-xl bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 sm:col-start-2" @click="confirmDelete">Delete Desk</button>
+                <button type="button" class="inline-flex w-full justify-center rounded-xl bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 sm:col-start-2" @click="confirmDelete">Delete</button>
                 <button type="button" class="mt-3 inline-flex w-full justify-center rounded-xl bg-white/60 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 hover:bg-gray-300 sm:col-start-1 sm:mt-0" @click="closeModal" ref="cancelButtonRef">Cancel</button>
               </div>
             </DialogPanel>

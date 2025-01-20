@@ -34,10 +34,10 @@ const submit = () => {
 
     <form @submit.prevent="submit" class="space-y-6">
       <InputField label="Name" icon="user" v-model="form.name" />
-      <InputField label="Email" icon="at" v-model="form.email" /> 
+      <InputField label="Email" icon="envelope" v-model="form.email" /> 
       <RoleSelect label="Role" icon="ticket" v-model="form.role"/>
-      <InputField label="Password" type="password" icon="key" v-model="form.password" />
-      <InputField label="Confirm Password" type="password" icon="key" v-model="form.password_confirmation" />
+      <InputField label="Password" type="password" icon="lock" v-model="form.password" />
+      <InputField label="Confirm Password" type="password" icon="lock" v-model="form.password_confirmation" />
 
       <PrimaryBtn :disabled="form.processing">Create User</PrimaryBtn>
     </form>

@@ -32,7 +32,7 @@ const submit = () => {
     <SessionMessages :status="status" />
 
     <form @submit.prevent="submit" class="space-y-6">
-      <InputField label="Email" icon="at" v-model="form.email" />
+      <InputField label="Email" icon="envelope" v-model="form.email" />
 
       <PrimaryBtn :disabled="form.processing">Send Password Reset Link</PrimaryBtn>
     </form>

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DeskController;
 use App\Http\Controllers\ReservationsController;
@@ -21,22 +21,27 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function() {
-  Route::get('/calendar', [ReservationsController::class, 'userCallendar'])->name('calendar');
+  Route::get('/calendar', [ReservationsController::class, 'calendar'])->name('calendar');
   Route::get('/reserve/{date}', [ReservationsController::class, 'userReservations'])->name('reserve');
+  Route::post('/reserve/{date}/{desk}', [ReservationsController::class, 'reserveDesk'])->name('desk.reserve');
+  Route::delete('/reserve/{date}/{desk}', [ReservationsController::class, 'cancelReservation'])->name('cancel.reservation');
 });
 
 Route::middleware(['auth', 'verified', Admin::class])->group(function() {
-  Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
-  Route::get('/admin/users/add', [AdminController::class, 'create'])->name('admin.create');
-  Route::post('/admin/users/add', [AdminController::class, 'store']);
-  Route::get('/admin/users/edit/{user}', [AdminController::class, 'edit'])->name('users.edit');
-  Route::patch('/admin/users/edit/{user}', [AdminController::class, 'update'])->name('users.update');
-  Route::delete('/admin/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
+  Route::get('/admin/users', [UserController::class, 'users'])->name('admin.users');
+  Route::get('/admin/users/add', [UserController::class, 'create'])->name('admin.create');
+  Route::post('/admin/users/add', [UserController::class, 'store']);
+  Route::get('/admin/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
+  Route::patch('/admin/users/edit/{user}', [UserController::class, 'update'])->name('users.update');
+  Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
   Route::get('/admin/desks', [DeskController::class, 'index'])->name('admin.desks');
   Route::get('/admin/desks/add', [DeskController::class, 'create'])->name('desks.create');
   Route::post('/admin/desks/add', [DeskController::class, 'store']);
   Route::delete('/admin/desks/{desk}', [DeskController::class, 'destroy'])->name('desks.destroy');
+
+  Route::get('/reservations/{date}', [ReservationsController::class, 'adminReservations'])->name('reservations');
+  Route::delete('/reservations/{reservation}', [ReservationsController::class, 'deleteReservation'])->name('delete.reservation');
 });
 
 Route::middleware('auth')->group(function () {

@@ -6,25 +6,51 @@ import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } fro
 
 const props = defineProps({
   desks: Object,
+  reservations: Object,
+  hasReservation: Boolean,
+  selectedDate: String,
+  reservedDesk: Number
 });
 
 const isModalOpen = ref(false);
+const isCancelModalOpen = ref(false);
 const selectedDesk = ref(null);
 
-const openModal = (user) => {
-  selectedDesk.value = user;
+const openModal = (desk) => {
+  selectedDesk.value = desk;
   isModalOpen.value = true;
 };
 const closeModal = () => {
   isModalOpen.value = false;
   selectedDesk.value = null;
 };
-
-const confirmDelete = () => {
+const confirmReservation = () => {
   if (selectedDesk.value) {
-    router.delete(route('', selectedDesk.value.id));
+    router.post(route('desk.reserve', { date: props.selectedDate, desk: selectedDesk.value.id }));
     closeModal();  
   }
+};
+
+const openCancelModal = (desk) => {
+  selectedDesk.value = desk;
+  isCancelModalOpen.value = true;
+};
+const closeCancelModal = () => {
+  isCancelModalOpen.value = false;
+  selectedDesk.value = null;
+};
+const confirmCancelReservation = () => {
+  if (selectedDesk.value) {
+    router.delete(route('cancel.reservation', { date: props.selectedDate, desk: selectedDesk.value.id }));
+    closeCancelModal();  
+  }
+};
+
+
+const othersReservations = (deskId) => {
+  return props.reservations.some(reservation => 
+    reservation.desk_id === deskId && reservation.date === props.selectedDate
+  );
 };
 </script>
 
@@ -45,9 +71,19 @@ const confirmDelete = () => {
                 </div>
               </div>
               <div class="flex justify-center bg-black/40 rounded-b-3xl min-h-16 p-3">
-                <button @click="openModal(desk)" type="button" class="text-lg font-semibold text-indigo-700 hover:text-indigo-600 p-2">
-                  <i class="fa-solid fa-bookmark"></i> Reserve
+
+                <button v-if="desk.id === reservedDesk" @click="openCancelModal(desk)" type="button" class="text-lg font-semibold text-green-500 p-2">
+                  <i class="fa-solid fa-bookmark"></i> Reserved
                 </button>
+
+                <button v-else-if="hasReservation || othersReservations(desk.id)" disabled type="button" class="text-lg font-semibold text-indigo-600/40 p-2">
+                  <i class="fa-solid fa-lock"></i> Reserved
+                </button>
+
+                <button v-else @click="openModal(desk)" type="button" class="text-lg font-semibold text-indigo-600 hover:text-indigo-600 p-2">
+                  <i class="fa-regular fa-bookmark"></i> Reserve
+                </button>
+
               </div>
             </div>
           </div>
@@ -67,19 +103,51 @@ const confirmDelete = () => {
             <DialogPanel class="relative transform overflow-hidden rounded-3xl bg-white/10 backdrop-blur-sm ring-1 
               ring-white/20 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
               <div>
-                <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-indigo-600/20">
-                  <i class="fa-solid fa-bookmark text-indigo-700 text-xl" aria-hidden="true"></i>
+                <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-indigo-500/20">
+                  <i class="fa-solid fa-bookmark text-indigo-600 text-xl" aria-hidden="true"></i>
                 </div>
                 <div class="mt-3 text-center sm:mt-5">
-                  <DialogTitle as="h3" class="text-xl font-semibold text-white">Reserve a Desk</DialogTitle>
+                  <DialogTitle as="h3" class="text-xl font-semibold text-white">Reserve Desk</DialogTitle>
                   <div class="mt-2">
                     <p class="text-gray-400 text-base/7 font-semibold">Are you sure you want to reserve this desk?</p>
                   </div>
                 </div>
               </div>
               <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                <button type="button" class="inline-flex w-full justify-center rounded-xl bg-indigo-700 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-500 sm:col-start-2" @click="confirmDelete">Reserve</button>
+                <button type="button" class="inline-flex w-full justify-center rounded-xl bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2" @click="confirmReservation">Reserve</button>
                 <button type="button" class="mt-3 inline-flex w-full justify-center rounded-xl bg-white/60 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 hover:bg-gray-300 sm:col-start-1 sm:mt-0" @click="closeModal" ref="cancelButtonRef">Cancel</button>
+              </div>
+            </DialogPanel>
+          </TransitionChild>
+        </div>
+      </div>
+    </Dialog>
+  </TransitionRoot>
+
+  <TransitionRoot as="template" :show="isCancelModalOpen">
+    <Dialog class="relative z-10" @close="closeCancelModal">
+      <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+        <div class="fixed inset-0 backdrop-blur  bg-gray-500/20 transition-opacity" />
+      </TransitionChild>
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+            <DialogPanel class="relative transform overflow-hidden rounded-3xl bg-white/10 backdrop-blur-sm ring-1 
+              ring-white/20 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+              <div>
+                <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-red-400/20">
+                  <i class="fa-solid fa-bomb text-red-500 text-xl" aria-hidden="true"></i>
+                </div>
+                <div class="mt-3 text-center sm:mt-5">
+                  <DialogTitle as="h3" class="text-xl font-semibold text-white">Cancel Reservation</DialogTitle>
+                  <div class="mt-2">
+                    <p class="text-gray-400 text-base/7 font-semibold">Are you sure you want to cancel this reservation?</p>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                <button type="button" class="inline-flex w-full justify-center rounded-xl bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 sm:col-start-2" @click="confirmCancelReservation">Unreserve</button>
+                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-xl bg-white/60 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 hover:bg-gray-300 sm:col-start-1 sm:mt-0" @click="closeCancelModal" ref="cancelButtonRef">Cancel</button>
               </div>
             </DialogPanel>
           </TransitionChild>
