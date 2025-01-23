@@ -17,8 +17,8 @@ const user = computed(() => page.props.auth.user);
         <Link :href="route('home')" class="-m-1.5 p-1.5">
           <img class="h-10 w-auto" src="../Images/Icon.png" alt="App Logo" />
         </Link>
-        <Link :href="route('home')" class="hidden lg:flex lg:gap-x-12 text-xl font-semibold text-white">
-          Deskify
+        <Link :href="route('home')" class="lg:flex lg:gap-x-12 text-xl font-semibold text-white">
+          Deskify.
         </Link>
       </div>
       <div class="flex lg:hidden">
@@ -87,7 +87,7 @@ const user = computed(() => page.props.auth.user);
                 <Link :href="route('calendar')" v-if="user.role === 'admin'" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Dashboard</Link>
               </div>
               <div class="py-6">
-                <Link :href="route('logout')" method="post" as="button" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5 ">Log out</Link>
+                <Link :href="route('logout')" method="post" as="button" class="-mx-3 block min-w-full text-start rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5">Log out</Link>
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Container class="mt-14 lg:max-w-md md:max-w-md">
+  <Container class="mt-8 max-w-sm sm:max-w-md sm:mt-10 lg:mt-14">
     <img class="my-4 h-20 w-auto mx-auto" src="../Images/Icon.png" alt="App Logo">
     <div class="mb-8 text-center">
       <Title class="mt-6">Set up a new User</Title>

@@ -23,14 +23,14 @@ defineProps({
               <Title class="pb-3 text-white/85 max-sm:text-2xl max-sm:pb-2 max-md:text-3xl max-lg:text-4xl text-5xl">{{ title }}</Title>
             </div>
             <div class="flex text-slate-400">
-              <Link :href="route('calendar')" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'Calendar' || $page.component === 'AdminReservation' || $page.component === 'UserReservation'}">
-                Calendar
+              <Link :href="route('calendar')" class="px-2 sm:px-3 lg:px-4 pt-2 md:pt-3 hover:text-indigo-600 text-lg md:text-xl lg:text-2xl font-semibold" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'Calendar' || $page.component === 'AdminReservation' || $page.component === 'UserReservation'}">
+                <i class="fa-solid fa-calendar-check"></i>
               </Link>
-              <Link :href="route('admin.users')" v-if="user.role === 'admin'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'UserList'}">
-                Users
+              <Link :href="route('admin.users')" v-if="user.role === 'admin'" class="px-2 sm:px-3 lg:px-4 pt-2 md:pt-3 hover:text-indigo-600 text-lg md:text-xl lg:text-2xl font-semibold" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'UserList'}">
+                <i class="fa-solid fa-user-group"></i>
               </Link>
-              <Link :href="route('admin.desks')" v-if="user.role === 'admin'" class="px-4 pt-4 hover:text-indigo-600 text-base font-semibold max-xl:text-base max-md:text-sm max-sm:text-xs max-sm:px-1" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'DeskList'}">
-                Desks
+              <Link :href="route('admin.desks')" v-if="user.role === 'admin'" class="px-2 sm:px-3 lg:px-4 pt-2 md:pt-3 hover:text-indigo-600 text-lg md:text-xl lg:text-2xl font-semibold" :class="{'text-indigo-600 border-b-2 border-indigo-600' : $page.component === 'DeskList'}">
+                <i class="fa-solid fa-computer"></i>
               </Link>
             </div>
           </div>

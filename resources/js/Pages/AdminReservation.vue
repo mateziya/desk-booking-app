@@ -40,33 +40,33 @@ const confirmDelete = () => {
             <table class="w-full text-left">
               <thead>
                 <tr>
-                  <th scope="col" class="relative isolate py-3.5 pr-3 text-left text-sm font-semibold text-slate-400">
+                  <th scope="col" class="relative isolate py-3.5 pr-3 text-left text-xs sm:text-sm font-semibold text-slate-400">
                     ID
                     <div class="absolute inset-y-0 right-full -z-10 w-screen border-b border-b-gray-500/25" />
                     <div class="absolute inset-y-0 left-0 -z-10 w-screen border-b border-b-gray-500/25" />
                   </th>
                   <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 md:table-cell">User</th>
                   <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 md:table-cell">User Email</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-400">Desk</th>
-                  <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 sm:table-cell">Date</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-xs sm:text-sm font-semibold text-slate-400">Desk</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-xs sm:text-sm font-semibold text-slate-400 sm:table-cell">Date</th>
                 </tr>
               </thead>
               <tbody v-for="reservation in reservations" :key="reservation.id">
                 <tr v-if="selectedDate === reservation.date">
-                  <td class="relative py-4 pr-3 text-sm font-medium text-gray-100">
+                  <td class="relative py-4 pr-3 text-xs sm:text-sm font-medium text-gray-100">
                     {{ reservation.id }}
                   </td>
                   <td class="hidden px-3 py-4 text-sm text-gray-100 md:table-cell">{{ reservation.user.name }}</td>
                   <td class="hidden px-3 py-4 text-sm text-gray-100 md:table-cell">{{ reservation.user.email }}</td>
-                  <td class="px-3 py-4 text-sm">
+                  <td class="px-3 py-4 text-xs sm:text-sm">
                     <span class="hidde min-w-24 place-content-center rounded-md bg-green-50/5 px-2 py-1 font-medium text-center text-green-500 ring-1 ring-inset ring-green-600/20 sm:table-cell">
                       {{ reservation.desk.name }}
                     </span>
                   </td>
-                  <td class="px-3 py-4 text-sm text-gray-100">
+                  <td class="px-3 py-4 text-xs sm:text-sm text-gray-100">
                     {{ reservation.date }}
                   </td>
-                  <td class="relative py-4  text-right text-sm font-medium">
+                  <td class="relative py-4  text-right text-xs sm:text-sm font-medium">
                     <button @click="openModal(reservation)" type="button" class="text-sm/6 font-semibold text-red-500 hover:text-red-400">
                       <i class="fa-solid fa-trash"></i>
                     </button>

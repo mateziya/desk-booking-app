@@ -14,6 +14,9 @@ export default {
             fontFamily: {
                 Montserrat : ["Montserrat", 'serif']
             },
+            ringWidth: {
+                '3': '3px'
+            },
         },
     },
     plugins: [

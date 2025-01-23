@@ -78,89 +78,83 @@ const selectedDate = (day) => {
 <template>
   <Dashboard title="Calendar" icon="calendar-check">
     <div class="pt-3">
-      <div class="flex justify-between pb-3 px-4">
-          <button @click="prevMonth" class="min-w-16 rounded-xl bg-indigo-600 px-5 py-2 text-center font-semibold text-sm text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 xl:text-sm max-md:text-xs">
+      <div class="flex justify-between items-center pb-3 px-4">
+          <button @click="prevMonth" class="min-w-8 sm:min-w-10 rounded-lg md:rounded-xl bg-indigo-600 px-4 md:px-5 py-1 md:py-2 text-center font-semibold text-xs text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800">
             <i class="fa-solid fa-chevron-left"></i>
           </button>
-          <Title>{{ monthNames[currentMonth] }} {{ currentYear }}</Title>
-          <button @click="nextMonth" class="min-w-16 rounded-xl bg-indigo-600 px-5 py-2 text-center font-semibold text-sm text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 xl:text-sm max-md:text-xs">
+          <Title class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">{{ monthNames[currentMonth] }} {{ currentYear }}</Title>
+          <button @click="nextMonth" class="in-w-8 sm:min-w-10 rounded-lg md:rounded-xl bg-indigo-600 px-4 md:px-5 py-1 md:py-2 text-center font-semibold text-xs text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800">
             <i class="fa-solid fa-chevron-right"></i>
           </button>
         </div>
       <div class="flow-root overflow-hidden bg-gradient-to-t from-black/40 bg-white/5 rounded-3xl shadow ring-1 ring-white/10">
         <div class="divide-y divide-gray-500/25 mt-2 my-3 mx-3">
           <div class="grid grid-cols-7">
-            <p class="py-8 text-center text-lg font-semibold text-slate-400">
+            <p class="py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-slate-400">
               M
             </p>
-            <p class="py-8 text-center text-lg font-semibold text-slate-400">
+            <p class="py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-slate-400">
               T
             </p>
-            <p class="py-8 text-center text-lg font-semibold text-slate-400">
+            <p class="py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-slate-400">
               W
             </p>
-            <p class="py-8 text-center text-lg font-semibold text-slate-400">
+            <p class="py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-slate-400">
               T
             </p>
-            <p class="py-8 text-center text-lg font-semibold text-slate-400">
+            <p class="py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-slate-400">
               F
             </p>
-            <p class="py-8 text-center text-lg font-semibold text-white/40">
+            <p class="py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-white/40">
               S
             </p>
-            <p class="py-8 text-center text-lg font-semibold text-indigo-600">
+            <p class="py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-indigo-600">
               S
             </p>
           </div>
-          <div class="grid grid-cols-7">
+          <div class="grid grid-cols-7 pt-2">
             <div v-if="user.role === 'user'" v-for="(day, index) in daysInMonth" :key="index" class="flex justify-center">
-              <Link v-if="workDays(day)"
-              :class="{
-                  'ring-1 ring-indigo-800 bg-indigo-600/20 rounded-lg': isToday(day),
-                  'm-1 rounded-lg hover:ring-1 hover:ring-indigo-800/50 hover:bg-indigo-600/10': workDays(day),
-                  'text-white/15': !isCurrentMonth(day),
-                  'text-white/40': isSaturday(day),
-                  'text-indigo-600': isSunday(day)
-                  
-                }" 
-              class="w-full py-8 text-center text-lg font-semibold text-gray-100"
+              <Link v-if="isToday(day)"
+              class="w-full m-1 py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg font-semibold text-gray-100 ring-3 ring-indigo-800 bg-indigo-600/20 rounded-md md:rounded-lg hover:ring-3 hover:ring-indigo-700/50 hover:bg-indigo-500/10"
+              :href="route('reserve', selectedDate(day) )">
+                {{ day.getDate() }}
+              </Link>
+              <Link v-else-if="workDays(day)"
+              class="w-full m-1 py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg font-semibold text-gray-100 bg-slate-500/5 rounded-md md:rounded-lg hover:ring-3 hover:ring-indigo-800/50 hover:bg-indigo-600/10"
               :href="route('reserve', selectedDate(day) )">
                 {{ day.getDate() }}
               </Link>
               <p v-else
               :class="{
-                  'ring-1 ring-indigo-800 bg-indigo-600/20 rounded-lg': isToday(day),
-                  'text-white/15': !isCurrentMonth(day),
-                  'text-white/40': isSaturday(day),
-                  'text-indigo-600': isSunday(day)
+                  'ring-3 ring-indigo-800 bg-indigo-600/20': isToday(day),
+                  'text-white/15 bg-slate-600/5': !isCurrentMonth(day),
+                  'text-white/40 bg-slate-500/10': isSaturday(day),
+                  'text-indigo-600 bg-indigo-700/20': isSunday(day)
                 }" 
-              class="w-full m-1 py-8 text-center text-lg font-semibold text-gray-100">
+              class="w-full m-1 py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg font-semibold text-gray-100 rounded-md md:rounded-lg">
                 {{ day.getDate() }}
               </p>
             </div>
 
             <div v-if="user.role === 'admin'" v-for="(day, index) in daysInMonth" :key="index" class="flex justify-center">
-              <Link v-if="workDays(day)"
-              :class="{
-                  'ring-1 ring-indigo-800 bg-indigo-600/20 rounded-lg': isToday(day),
-                  'm-1 rounded-lg hover:ring-1 hover:ring-indigo-800/50 hover:bg-indigo-600/10': workDays(day),
-                  'text-white/15': !isCurrentMonth(day),
-                  'text-white/40': isSaturday(day),
-                  'text-indigo-600': isSunday(day)
-                  
-                }" 
-              class="w-full py-8 text-center text-lg font-semibold text-gray-100"
+              <Link v-if="isToday(day)"
+              class="w-full m-1 py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg font-semibold text-gray-100 ring-3 ring-indigo-800 bg-indigo-600/20 rounded-md md:rounded-lg hover:ring-3 hover:ring-indigo-700/50 hover:bg-indigo-500/10"
+              :href="route('reservations', selectedDate(day) )">
+                {{ day.getDate() }}
+              </Link>
+              <Link v-else-if="workDays(day)"
+              class="w-full m-1 py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg font-semibold text-gray-100 bg-slate-500/5 rounded-md md:rounded-lg hover:ring-3 hover:ring-indigo-800/50 hover:bg-indigo-600/10"
               :href="route('reservations', selectedDate(day) )">
                 {{ day.getDate() }}
               </Link>
               <p v-else
               :class="{
-                  'ring-1 ring-indigo-800 bg-indigo-600/20 rounded-lg': isToday(day),
-                  'text-white/15': !isCurrentMonth(day),
-                  'text-white/40': isSaturday(day),
-                  'text-indigo-600': isSunday(day)
+                  'ring-3 ring-indigo-800 bg-indigo-600/20': isToday(day),
+                  'text-white/15 bg-slate-600/5': !isCurrentMonth(day),
+                  'text-white/40 bg-slate-500/10': isSaturday(day),
+                  'text-indigo-600 bg-indigo-700/20': isSunday(day)
                 }" 
-              class="w-full m-1 py-8 text-center text-lg font-semibold text-gray-100">
+              class="w-full m-1 py-2 sm:py-4 md:py-6 lg:py-8 text-center text-sm sm:text-base md:text-lg font-semibold text-gray-100 rounded-md md:rounded-lg">
                 {{ day.getDate() }}
               </p>
             </div>

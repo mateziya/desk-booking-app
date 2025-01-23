@@ -19,7 +19,7 @@ const submit = () => {
 </script>
 
 <template>
-  <Container class="mt-20">
+  <Container class="mt-8 max-w-sm sm:max-w-md sm:mt-10 lg:mt-14">
     <img class="my-4 h-20 w-auto mx-auto" src="../Images/Icon.png" alt="App Logo">
     <div class="mb-8 text-center">
       <Title class="mt-4">Forgot your password?</Title>

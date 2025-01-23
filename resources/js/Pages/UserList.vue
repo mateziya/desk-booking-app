@@ -40,33 +40,33 @@ const confirmDelete = () => {
             <table class="w-full text-left">
               <thead>
                 <tr>
-                  <th scope="col" class="relative isolate py-3.5 pr-3 text-left text-sm font-semibold text-slate-400">
+                  <th scope="col" class="relative isolate py-3.5 pr-3 text-left text-xs sm:text-sm font-semibold text-slate-400">
                     ID
                     <div class="absolute inset-y-0 right-full -z-10 w-screen border-b border-b-gray-500/25" />
                     <div class="absolute inset-y-0 left-0 -z-10 w-screen border-b border-b-gray-500/25" />
                   </th>
                   <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 md:table-cell">Name</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-400">Email</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-xs sm:text-sm font-semibold text-slate-400">Email</th>
                   <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-slate-400 sm:table-cell">Role</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="user in users" :key="user.id">
-                  <td class="relative py-4 pr-3 text-sm font-medium text-gray-100">
+                  <td class="relative py-4 pr-3 text-xs sm:text-sm font-medium text-gray-100">
                     {{ user.id }}
                   </td>
                   <td class="hidden px-3 py-4 text-sm text-gray-100 md:table-cell">{{ user.name }}</td>
-                  <td class="px-3 py-4 text-sm text-gray-100">{{ user.email }}</td>
+                  <td class="px-3 py-4 text-xs sm:text-sm text-gray-100">{{ user.email }}</td>
                   <td class="whitespace-nowrap  px-3 py-4 text-xs capitalize">
                     <span v-if="user.role === 'admin'" class="hidden min-w-14 rounded-md bg-red-50/5 px-2 py-1 font-medium text-center text-red-500 ring-1 ring-inset ring-red-600/20 sm:table-cell">{{ user.role }}</span>
                     <span v-if="user.role === 'user'" class="hidden min-w-14 rounded-md bg-green-50/5 px-2 py-1 font-medium text-center text-green-500 ring-1 ring-inset ring-green-600/20 sm:table-cell">{{ user.role }}</span>
                   </td>
-                  <td class="relative py-4 px-1 text-right text-sm font-medium">
+                  <td class="relative py-4 px-1 text-right text-xs sm:text-sm font-medium">
                     <Link :href="route('users.edit', user.id)" class="text-sm/6 font-semibold text-indigo-600 hover:text-indigo-500">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </Link>
                   </td>
-                  <td class="relative py-4 text-right text-sm font-medium">
+                  <td class="relative py-4 text-right text-xs sm:text-sm font-medium">
                     <button @click="openModal(user)" type="button" class="text-sm/6 font-semibold text-red-500 hover:text-red-400">
                       <i class="fa-solid fa-trash"></i>
                     </button>

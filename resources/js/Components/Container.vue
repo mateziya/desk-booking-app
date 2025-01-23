@@ -10,9 +10,7 @@
               mx-auto 
               p-8 
               rounded-3xl
-              sm:mx-auto 
-              sm:w-full 
-              sm:max-w-md">
+              ">
     <slot />
   </div>
 </template>

@@ -9,7 +9,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import Nav from './Layouts/Nav.vue';
 
 createInertiaApp({
-  title: (title) => 'Desk Booking',
+  title: (title) => 'Deskify.',
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
     let page = pages[`./Pages/${name}.vue`]
