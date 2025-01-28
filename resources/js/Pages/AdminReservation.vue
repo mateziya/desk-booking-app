@@ -1,5 +1,6 @@
 <script setup>
 import Dashboard from '../Components/Dashboard.vue';
+import Pagination from '../Components/Pagination.vue';
 import { ref } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
@@ -32,7 +33,7 @@ const confirmDelete = () => {
 </script>
 
 <template>
-  <Dashboard title="Reservations" icon="bookmark">
+  <Dashboard title="Reservations" icon="bookmark" class="pb-2">
     <div class="pt-6">
       <div>
         <div class="flow-root overflow-hidden bg-gradient-to-t from-black/40 bg-white/5 rounded-3xl shadow ring-1 ring-white/10">
@@ -51,7 +52,7 @@ const confirmDelete = () => {
                   <th scope="col" class="px-3 py-3.5 text-left text-xs sm:text-sm font-semibold text-slate-400 sm:table-cell">Date</th>
                 </tr>
               </thead>
-              <tbody v-for="reservation in reservations" :key="reservation.id">
+              <tbody v-for="reservation in reservations.data" :key="reservation.id">
                 <tr v-if="selectedDate === reservation.date">
                   <td class="relative py-4 pr-3 text-xs sm:text-sm font-medium text-gray-100">
                     {{ reservation.id }}
@@ -77,6 +78,7 @@ const confirmDelete = () => {
           </div>
         </div>
       </div>
+      <Pagination :links="reservations.links"/>
     </div>
   </Dashboard>
 

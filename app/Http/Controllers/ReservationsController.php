@@ -37,7 +37,7 @@ class ReservationsController extends Controller
     }
     public function adminReservations($date)
     {
-        $reservations = Reservation::with(['user', 'desk'])->get();
+        $reservations = Reservation::with(['user', 'desk'])->paginate(10);
 
         return Inertia::render('AdminReservation', [
             'selectedDate' => $date,

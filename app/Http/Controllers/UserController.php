@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function users()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         return Inertia::render('UserList', [
             'users' => $users
         ]);

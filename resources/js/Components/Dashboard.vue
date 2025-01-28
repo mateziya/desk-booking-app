@@ -14,7 +14,7 @@ defineProps({
 </script>
 
 <template>
-  <Container class="mt-8 xl:max-w-7xl lg:max-w-6xl md:max-w-5xl sm:max-w-4xl max-sm:p-6 ">
+  <Container class="mt-8 mb-16 xl:max-w-7xl lg:max-w-6xl md:max-w-5xl sm:max-w-4xl max-sm:p-6 ">
       <div class="mb-2">
         <div class="divide-y divide-gray-500/25">
           <div class="flex justify-between">

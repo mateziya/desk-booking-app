@@ -1,5 +1,6 @@
 <script setup>
 import Dashboard from '../Components/Dashboard.vue';
+import Pagination from '../Components/Pagination.vue';
 import { ref } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
@@ -29,7 +30,7 @@ const confirmDelete = () => {
 </script>
 
 <template>
-  <Dashboard title="Users" icon="user-group">
+  <Dashboard title="Users" icon="user-group" class="pb-2">
     <div class="pt-3">
       <div>
         <div class="flex justify-end pb-3 px-4">
@@ -51,7 +52,7 @@ const confirmDelete = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in users" :key="user.id">
+                <tr v-for="user in users.data" :key="user.id">
                   <td class="relative py-4 pr-3 text-xs sm:text-sm font-medium text-gray-100">
                     {{ user.id }}
                   </td>
@@ -77,6 +78,7 @@ const confirmDelete = () => {
           </div>
         </div>
       </div>
+      <Pagination :links="users.links"/>
     </div>
   </Dashboard>
 
