@@ -33,7 +33,7 @@ const confirmDelete = () => {
 </script>
 
 <template>
-  <Dashboard title="Reservations" icon="bookmark" class="pb-2">
+  <Dashboard icon="circle-nodes" class="pb-2 max-sm:pb-2">
     <div class="pt-6">
       <div>
         <div class="flow-root overflow-hidden bg-gradient-to-t from-black/40 bg-white/5 rounded-3xl shadow ring-1 ring-white/10">

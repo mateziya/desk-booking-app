@@ -76,7 +76,7 @@ const selectedDate = (day) => {
 </script>
 
 <template>
-  <Dashboard title="Calendar" icon="calendar-check">
+  <Dashboard icon="circle-nodes">
     <div class="pt-3">
       <div class="flex justify-between items-center pb-3 px-4">
           <button @click="prevMonth" class="min-w-8 sm:min-w-10 rounded-lg md:rounded-xl bg-indigo-600 px-4 md:px-5 py-1 md:py-2 text-center font-semibold text-xs text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800">

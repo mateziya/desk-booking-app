@@ -30,7 +30,7 @@ const confirmDelete = () => {
 </script>
 
 <template>
-  <Dashboard title="Users" icon="user-group" class="pb-2">
+  <Dashboard icon="circle-nodes" class="pb-2 max-sm:pb-2">
     <div class="pt-3">
       <div>
         <div class="flex justify-end pb-3 px-4">

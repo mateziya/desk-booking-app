@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $credentials = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|lowercase|email|max:255',
+            'email' => 'required|lowercase|email|max:255|unique:users,email',
             'role' => 'string',
             'password' => 'required|min:6|confirmed'
         ]);
@@ -43,7 +43,7 @@ class UserController extends Controller
     {
         $credentials = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|lowercase|email|max:255',
+            'email' => 'required|lowercase|email|max:255|unique:users,email',
             'role' => 'string'
         ]);
         $user->update($credentials);

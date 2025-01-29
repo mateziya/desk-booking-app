@@ -15,7 +15,7 @@ class DeskController extends Controller
      */
     public function index()
     {
-        $desks = Desk::paginate(10);
+        $desks = Desk::paginate(8);
         return Inertia::render('DeskList', [
             'desks' => $desks
         ]);

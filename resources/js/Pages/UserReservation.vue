@@ -1,5 +1,6 @@
 <script setup>
 import Dashboard from '../Components/Dashboard.vue';
+import Pagination from '../Components/Pagination.vue';
 import { ref } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue';
@@ -46,7 +47,6 @@ const confirmCancelReservation = () => {
   }
 };
 
-
 const othersReservations = (deskId) => {
   return props.reservations.some(reservation => 
     reservation.desk_id === deskId && reservation.date === props.selectedDate
@@ -55,12 +55,12 @@ const othersReservations = (deskId) => {
 </script>
 
 <template>
-  <Dashboard title="Reserve a Desk" icon="check-to-slot">
+  <Dashboard icon="circle-nodes" class="pb-2 max-sm:pb-2">
     <div>
       <div>
         <div class="mx-auto max-w-2xl lg:max-w-7xl">
           <div class="mt-6 grid grid-cols-1 gap-y-12 sm:gap-x-6 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            <div v-for="desk in desks" :key="desk.id" class="bg-white/5 rounded-3xl ring-1 ring-white/10">
+            <div v-for="desk in desks.data" :key="desk.id" class="bg-white/5 rounded-3xl ring-1 ring-white/10">
               <div class="relative">
                 <div class="relative h-72 w-full overflow-hidden rounded-3xl">
                   <img :src="desk.image_path ? `/storage/${desk.image_path}` : `/storage/desks/Default.png`" alt="" class="size-full object-cover" />
@@ -89,6 +89,7 @@ const othersReservations = (deskId) => {
           </div>
         </div>
       </div>
+      <Pagination :links="desks.links"/>
     </div>
   </Dashboard>
 

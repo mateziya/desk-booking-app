@@ -11,7 +11,7 @@ use Inertia\Inertia;
 class ReservationsController extends Controller
 {
     public function calendar()
-    {
+    {   
         return Inertia::render('Calendar');
     }
     public function userReservations($date)
@@ -21,7 +21,7 @@ class ReservationsController extends Controller
 
         $desks = Desk::with(['reservations' => function ($query) use ($date) {
             $query->where('date', $date);
-        }])->get();
+        }])->paginate(8);
 
         $hasReservation = $user->reservations()->where('date', $date)->exists();
 

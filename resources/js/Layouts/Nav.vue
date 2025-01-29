@@ -48,7 +48,7 @@ const user = computed(() => page.props.auth.user);
                     </Link>
                     <Link :href="route('calendar')" v-if="user.role === 'admin'" class="block p-2 hover:text-indigo-600">
                       Dashboard
-                    </Link>                     
+                    </Link>                    
                   </div>
                   <div class="py-2">
                     <Link :href="route('logout')" method="post" as="button" class="block px-2 pt-2 hover:text-indigo-600">
