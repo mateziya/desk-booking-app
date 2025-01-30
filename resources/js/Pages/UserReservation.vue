@@ -63,7 +63,8 @@ const othersReservations = (deskId) => {
             <div v-for="desk in desks.data" :key="desk.id" class="bg-white/5 rounded-3xl ring-1 ring-white/10">
               <div class="relative">
                 <div class="relative h-72 w-full overflow-hidden rounded-3xl">
-                  <img :src="desk.image_path ? `/storage/${desk.image_path}` : `/storage/desks/Default.png`" alt="" class="size-full object-cover" />
+                  <img v-if="desk.image_path" :src="`/storage/${desk.image_path}`" alt="" class="size-full object-cover">
+                  <img v-else src="../Images/Default.png" alt="" class="size-full object-cover">
                 </div>
                 <div class="absolute inset-x-0 top-0 flex h-72 items-end justify-end overflow-hidden rounded-t-3xl p-4">
                   <div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-40" />

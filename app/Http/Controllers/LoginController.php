@@ -25,7 +25,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->route('home');
+            return redirect()->route('calendar');
         }
         return back()->withErrors([
             'email' => 'The provided credentials do not match.'

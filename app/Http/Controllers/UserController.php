@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -24,7 +25,8 @@ class UserController extends Controller
     {
         $credentials = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|lowercase|email|max:255|unique:users,email',
+            'email' => ['required','lowercase','email','max:255',
+            Rule::unique('users', 'email')->ignore($user->id),],
             'role' => 'string',
             'password' => 'required|min:6|confirmed'
         ]);
@@ -43,7 +45,8 @@ class UserController extends Controller
     {
         $credentials = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|lowercase|email|max:255|unique:users,email',
+            'email' => ['required','lowercase','email','max:255',
+            Rule::unique('users', 'email')->ignore($user->id),],
             'role' => 'string'
         ]);
         $user->update($credentials);
